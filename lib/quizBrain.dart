@@ -37,4 +37,21 @@ class QuizBrain {
   bool getAnswer() {
     return _questionBank[_questionNumber].Answer;
   }
+
+  void nextQuestion() {
+    if (_questionNumber <= _questionBank.length - 1) {
+      _questionNumber++;
+    }
+  }
+
+  bool isFininshed() {
+    if (_questionNumber >= _questionBank.length) {
+      return true;
+    } else
+      return false;
+  }
+
+  void reset() {
+    _questionNumber = 0;
+  }
 }

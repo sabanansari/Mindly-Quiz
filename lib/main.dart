@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'quizBrain.dart';
 
 void main() {
   runApp(Quiz());
 }
+
+QuizBrain quizBrain = QuizBrain();
 
 class Quiz extends StatelessWidget {
   @override
@@ -27,6 +30,31 @@ class QuizArea extends StatefulWidget {
 
 class _QuizAreaState extends State<QuizArea> {
   List<Icon> score = [];
+
+  void checkAnswer(bool usersAnswer) {
+    bool correctAnswer = quizBrain.getAnswer();
+
+    setState(() {
+      if (quizBrain.isFininshed() == true) {
+        quizBrain.reset();
+        score = [];
+      } else {
+        if (correctAnswer == usersAnswer) {
+          score.add(Icon(
+            Icons.check,
+            color: Colors.green,
+          ));
+        } else {
+          score.add(Icon(
+            Icons.close,
+            color: Colors.red,
+          ));
+        }
+        quizBrain.nextQuestion();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,7 +67,7 @@ class _QuizAreaState extends State<QuizArea> {
               padding: const EdgeInsets.all(10.0),
               child: Center(
                   child: Text(
-                'dfd',
+                quizBrain.getQuestion(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -54,7 +82,9 @@ class _QuizAreaState extends State<QuizArea> {
               child: FlatButton(
                   textColor: Colors.white,
                   color: Colors.green,
-                  onPressed: () {},
+                  onPressed: () {
+                    checkAnswer(true);
+                  },
                   child: Text(
                     'True',
                     style: TextStyle(fontSize: 20.0, color: Colors.white),
@@ -67,7 +97,9 @@ class _QuizAreaState extends State<QuizArea> {
               child: FlatButton(
                   textColor: Colors.white,
                   color: Colors.red,
-                  onPressed: () {},
+                  onPressed: () {
+                    checkAnswer(false);
+                  },
                   child: Text(
                     'False',
                     style: TextStyle(fontSize: 20.0, color: Colors.white),
