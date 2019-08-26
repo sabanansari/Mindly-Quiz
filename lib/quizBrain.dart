@@ -31,24 +31,25 @@ class QuizBrain {
   ];
 
   String getQuestion() {
-    return _questionBank[_questionNumber].Questions;
+    return _questionBank[_questionNumber].questions;
   }
 
   bool getAnswer() {
-    return _questionBank[_questionNumber].Answer;
+    return _questionBank[_questionNumber].answer;
   }
 
   void nextQuestion() {
-    if (_questionNumber <= _questionBank.length - 1) {
+    if (_questionNumber < _questionBank.length - 1) {
       _questionNumber++;
     }
   }
 
-  bool isFininshed() {
-    if (_questionNumber >= _questionBank.length) {
+  bool isFinished() {
+    if (_questionNumber >= _questionBank.length - 1) {
       return true;
-    } else
+    } else {
       return false;
+    }
   }
 
   void reset() {
